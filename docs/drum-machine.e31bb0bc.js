@@ -25841,13 +25841,60 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var bank = [{
+  id: 'Q',
+  displayName: 'Heater 1',
+  keyId: 81,
+  src: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3'
+}, {
+  id: 'W',
+  displayName: 'Heater 2',
+  keyId: 87,
+  src: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3'
+}, {
+  id: 'E',
+  displayName: 'Cymbal',
+  keyId: 69,
+  src: 'https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3'
+}, {
+  id: 'A',
+  displayName: 'Lighter',
+  keyId: 65,
+  src: 'https://s3.amazonaws.com/freecodecamp/drums/Give_us_a_light.mp3'
+}, {
+  id: 'S',
+  displayName: 'Hat/Kick',
+  keyId: 83,
+  src: 'https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3'
+}, {
+  id: 'D',
+  displayName: 'Kick 1',
+  keyId: 68,
+  src: 'https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3'
+}, {
+  id: 'Z',
+  displayName: 'Snare',
+  keyId: 90,
+  src: 'https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3'
+}, {
+  id: 'X',
+  displayName: 'Side Stick',
+  keyId: 88,
+  src: 'https://s3.amazonaws.com/freecodecamp/drums/side_stick_1.mp3'
+}, {
+  id: 'C',
+  displayName: 'Kick 2',
+  keyId: 67,
+  src: 'https://s3.amazonaws.com/freecodecamp/drums/punchy_kick_1.mp3'
+}];
 
 var Drum =
 /*#__PURE__*/
@@ -25861,72 +25908,125 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Drum).call(this, props));
     _this.state = {
-      q: {
-        id: 'Q',
-        displayName: 'Heater 1',
-        keyId: 81,
-        src: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3'
-      },
-      w: {
-        id: 'W',
-        displayName: 'Heater 2',
-        keyId: 87,
-        src: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3'
-      },
-      e: {
-        id: 'E',
-        displayName: 'Cymbal',
-        keyId: 69,
-        src: 'https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3'
-      },
-      a: {
-        id: 'A',
-        displayName: 'Lighter',
-        keyId: 65,
-        src: 'https://s3.amazonaws.com/freecodecamp/drums/Give_us_a_light.mp3'
-      },
-      s: {
-        id: 'S',
-        displayName: 'Hat/Kick',
-        keyId: 83,
-        src: 'https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3'
-      },
-      d: {
-        id: 'D',
-        displayName: 'Kick 1',
-        keyId: 68,
-        src: 'https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3'
-      },
-      z: {
-        id: 'Z',
-        displayName: 'Snare',
-        keyId: 90,
-        src: 'https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3'
-      },
-      x: {
-        id: 'X',
-        displayName: 'Side Stick',
-        keyId: 88,
-        src: 'https://s3.amazonaws.com/freecodecamp/drums/side_stick_1.mp3'
-      },
-      c: {
-        id: 'C',
-        displayName: 'Kick 2',
-        keyId: 67,
-        src: 'https://s3.amazonaws.com/freecodecamp/drums/punchy_kick_1.mp3'
-      }
+      bank: bank,
+      display: 'Sample Name Display'
     };
+    _this.playSample = _this.playSample.bind(_assertThisInitialized(_this));
+    _this.handleKeyDown = _this.handleKeyDown.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Drum, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      document.addEventListener('keydown', this.handleKeyDown);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      document.removeEventListener('keydown', this.handleKeyDown);
+    }
+  }, {
+    key: "playSample",
+    value: function playSample(e) {
+      var sample = e.target.getElementsByClassName('clip')[0];
+      sample.currentTime = 0;
+      sample.play();
+      this.setState({
+        display: e.target.id
+      });
+    }
+  }, {
+    key: "handleKeyDown",
+    value: function handleKeyDown(event) {
+      var id = String.fromCharCode(event.keyCode);
+      var sample = document.getElementById(id);
+      sample.currentTime = 0;
+      sample.play();
+      this.setState({
+        display: sample.parentElement.id
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return _react.default.createElement("div", {
         id: "drum-machine"
       }, _react.default.createElement("div", {
         id: "display"
-      }, "sample name here"));
+      }, this.state.display), _react.default.createElement("div", {
+        id: this.state.bank[0].displayName,
+        className: "drum-pad",
+        onClick: this.playSample
+      }, this.state.bank[0].id, _react.default.createElement("audio", {
+        className: "clip",
+        src: this.state.bank[0].src,
+        id: "Q"
+      })), _react.default.createElement("div", {
+        id: this.state.bank[1].displayName,
+        className: "drum-pad",
+        onClick: this.playSample
+      }, this.state.bank[1].id, _react.default.createElement("audio", {
+        className: "clip",
+        src: this.state.bank[1].src,
+        id: "W"
+      })), _react.default.createElement("div", {
+        id: this.state.bank[2].displayName,
+        className: "drum-pad",
+        onClick: this.playSample
+      }, this.state.bank[2].id, _react.default.createElement("audio", {
+        className: "clip",
+        src: this.state.bank[2].src,
+        id: "E"
+      })), _react.default.createElement("div", {
+        id: this.state.bank[3].displayName,
+        className: "drum-pad",
+        onClick: this.playSample
+      }, this.state.bank[3].id, _react.default.createElement("audio", {
+        className: "clip",
+        src: this.state.bank[3].src,
+        id: "A"
+      })), _react.default.createElement("div", {
+        id: this.state.bank[4].displayName,
+        className: "drum-pad",
+        onClick: this.playSample
+      }, this.state.bank[4].id, _react.default.createElement("audio", {
+        className: "clip",
+        src: this.state.bank[4].src,
+        id: "S"
+      })), _react.default.createElement("div", {
+        id: this.state.bank[5].displayName,
+        className: "drum-pad",
+        onClick: this.playSample
+      }, this.state.bank[5].id, _react.default.createElement("audio", {
+        className: "clip",
+        src: this.state.bank[5].src,
+        id: "D"
+      })), _react.default.createElement("div", {
+        id: this.state.bank[6].displayName,
+        className: "drum-pad",
+        onClick: this.playSample
+      }, this.state.bank[6].id, _react.default.createElement("audio", {
+        className: "clip",
+        src: this.state.bank[6].src,
+        id: "Z"
+      })), _react.default.createElement("div", {
+        id: this.state.bank[7].displayName,
+        className: "drum-pad",
+        onClick: this.playSample
+      }, this.state.bank[7].id, _react.default.createElement("audio", {
+        className: "clip",
+        src: this.state.bank[7].src,
+        id: "X"
+      })), _react.default.createElement("div", {
+        id: this.state.bank[8].displayName,
+        className: "drum-pad",
+        onClick: this.playSample
+      }, this.state.bank[8].id, _react.default.createElement("audio", {
+        className: "clip",
+        src: this.state.bank[8].src,
+        id: "C"
+      })));
     }
   }]);
 
@@ -25964,7 +26064,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61160" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60983" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

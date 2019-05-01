@@ -1,2 +1,50 @@
+body {
+  background-color: #140840;
+  font-family: "Gugi", cursive;
+}
+
+#drum-machine {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 50%;
+  flex-wrap: wrap;
+}
+
+#display {
+  width: 100%;
+  align-self: center;
+  text-align: center;
+  font-size: 24px;
+  color: #A52BD9;
+}
+
+.drum-pad {
+  margin: 1.5%;
+  display: flex;
+  background-color: #6C1ED9;
+  width: 30%;
+  height: 50%;
+  border-radius: 13px;
+  box-shadow: 3px 3px 5px #BF1FB5;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+}
+
+.drum-pad:hover {
+  background-color: #A52BD9;
+}
+
+.drum-pad:active {
+  box-shadow: 0 0 3px #BF1FB5;
+}
+
+.audio {
+  min-width: 100%;
+  min-height: 100%;
+  background-color: blue;
+}
 
 /*# sourceMappingURL=/drum-machine.e31bb0bc.css.map */
